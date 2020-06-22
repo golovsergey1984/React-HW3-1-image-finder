@@ -10,19 +10,23 @@ import PropTypes from 'prop-types';
 
 
 export default class App extends Component {
+    constructor(props) {
+        super(props);
+        this.myRef = React.createRef();
+    }
+
     state = {
         images: [],
         isLoading: false,
         error: null,
         page: 1,
         query: "",
-        myRef: React.createRef()
     };
 
     /*  componentDidMount() {
          window.scrollTo(0, 0);
      }
-  */
+    */
     fetchImages = (query, page) => {
         this.setState({ isLoading: true });
         ImagesAPI
@@ -43,7 +47,7 @@ export default class App extends Component {
 
     }
 
-    IncrementPage = () => {
+    incrementPage = () => {
         this.setState((prevState) => ({
             page: prevState.page + 1
         }))
@@ -71,7 +75,7 @@ export default class App extends Component {
                 {error && <ErrorNotification text={error.message} />}
                 {isLoading && <Loader />}
                 {images.length > 0 && <ImageGallery items={images} />}
-                {images.length > 0 && <Button onClickBtn={this.IncrementPage} />}
+                {images.length > 0 && <Button onClickBtn={this.incrementPage} />}
             </Fragment>
         );
     }
